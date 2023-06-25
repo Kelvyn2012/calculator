@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  height: 100px;
+}
+
+body {
+  background: #010913;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  line-height: 1.7;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.grid-container {
+  background-color: beige;
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
+  height: 450px;
+  width: 400px;
+  border-radius: 25px;
+  border: 5px solid red;
+}
+.screen {
+  background-color: white;
+  border: 2px solid black;
+  padding: 12px;
+  border-radius: 10px;
+  margin: 20px 10px;
+  width: 365px;
+  height: 80px;
+}
+.btn {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 25px;
+  font-size: 20px;
+  width: 60px;
+  height: 60px;
+  margin: 5px;
+}
+.operators button {
+  background-color: green;
+  border-radius: 20px;
+}
+.equal {
+  background-color: rgb(217, 115, 6);
+  color: white;
+}
+.btn.clear{
+    background-color: rgb(119, 2, 2);
+    color: white;
+}
