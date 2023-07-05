@@ -1,52 +1,87 @@
-const btn = document.querySelectorAll(".btn");
-const screen = document.querySelector(".screen");
+const number = document.querySelectorAll(".number");
+const operators = document.querySelectorAll(".operator");
+const currentNumberDisplay = document.querySelector(".currentNumberDisplay");
+const previousNumberDisplay = document.querySelector(".previousNumberDisplay");
+const equal = document.querySelector(".equal");
+const clear = document.querySelector(".clear");
 
-let numOne = "";
-let num2 = "";
+let previousNumber = "";
+let currentNumber = "";
 let operator = "";
-let screenNumbers = [];
 
-btn.forEach((btns) => {
-  btns.addEventListener("click", (e) => {
-    const btnClicked = e.target.value;
-    if (btnClicked) {
-      screen.textContent = screen.textContent + e.target.value;
-      operate();
-    }
-  });
-  
-});
-
-function calculate(num1, operator, num2) {
-  result = "";
-  if (operator === "add") {
-    addition();
-  } else if (operator === "subtract") {
-    subtration();
-  } else if (operator === "divide") {
-    multiplication();
-  } else if (operator === "multiply") {
-    division();
+equal.addEventListener("click", () => {
+  if (previousNumber != "" && currentNumber != "") {
+    calculate();
   }
-  return result;
-}
-function addition(num1, num2) {
-  return num1 + num2;
-}
-function subtration(num1, num2) {
-  return num1 - num2;
-}
-function multiplication(num1, num2) {
-  return num1 + num2;
-}
+});
+clear.addEventListener("click", reset);
 
-function division(num1, num2) {
-  return num1 + num2;
-}
-console.log(operate(5 + 8));
-
-btn.forEach((btns) => {
-  btns.addEventListener("mouseover", (e) => {
-    e.target.style.backgroundColor = "blue";
+number.forEach((numbers) => {
+  numbers.addEventListener("click", (e) => {
+    handleNumbers(e.target.textContent);
   });
 });
+
+function handleNumbers(numbers) {
+  if (currentNumber.length < 12) {
+    currentNumber += numbers;
+    currentNumberDisplay.textContent = currentNumber;
+  }
+}
+operators.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    handleOperator(e.target.textContent);
+  });
+});
+
+function handleOperator(op) {
+  operator = op;
+  previousNumber = currentNumber;
+  previousNumberDisplay.textContent = previousNumber + "" + operator;
+  currentNumber = "";
+  currentNumberDisplay.textContent = "";
+}
+function calculate() {
+  previousNumber = Number(previousNumber);
+  currentNumber = Number(currentNumber);
+  if (operator === "+") {
+    previousNumber = previousNumber + currentNumber;
+  } else if (operator === "-") {
+    previousNumber = previousNumber - currentNumber;
+  } else if (operator === "*") {
+    previousNumber = previousNumber * currentNumber;
+  } else if (operator === "/") {
+    if (currentNumber <= 0) {
+      previousNumber = "Error";
+      screenDisplay();
+    } else {
+      previousNumber = previousNumber / currentNumber;
+    }
+  }
+
+  previousNumber = previousNumber.toString();
+  previousNumberDisplay.textContent = "";
+  currentNumberDisplay.textContent = previousNumber;
+}
+function reset() {
+  previousNumberDisplay.textContent = "";
+  currentNumberDisplay.textContent = "";
+  previousNumber = "";
+  currentNumber = "";
+}
+function screenDisplay() {
+  if (previousNumber.length <= 11) {
+    currentNumberDisplay.textContent = previousNumber;
+  } else {
+    currentNumberDisplay.textContent = previousNumber.slice(0, 11) + "...";
+  }
+  currentNumber = "";
+  currentNumberDisplay.textContent = "";
+  operator = "";
+}
+function checkOperator(text) {
+  text = operator;
+  previousNumberDisplay = previousNumber + "" + operator;
+  currentNumberDisplay = 0;
+  currentNumber = "";
+}
